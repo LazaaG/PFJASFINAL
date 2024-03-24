@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, Response
 from pymongo import MongoClient
 import pandas as pd
 import io, os
+import openpyxl
 
 def crear_app():
     app = Flask(__name__)
@@ -60,11 +61,27 @@ def crear_app():
             correo = request.form.get('correo')
             inscripto = participantes_collection.find_one({"correo": correo})
 
+            # Cargar el segundo archivo Excel que contiene los enlaces de las compañías
+            libro_excel_enlaces = openpyxl.load_workbook('./archivos/datos_fijos.xlsx')
+            hoja_excel_enlaces = libro_excel_enlaces.active
+
             if inscripto:
                 participantes_collection.update_one({"_id": inscripto["_id"]}, {"$set": {"registro": "SI"}})
 
+                # Buscar el enlace correspondiente a la compañía en el segundo archivo Excel
+                for fila in hoja_excel_enlaces.iter_rows(min_row=2, values_only=True):
+                    if fila[0] == inscripto["compania"]:
+                        linkcompania = fila[1]
+                        break
+
+                # Buscar el color
+                for fila in hoja_excel_enlaces.iter_rows(min_row=2, values_only=True):
+                    if fila[3] == inscripto["sesion"]:
+                        color_text = fila[4]
+                        break
+
                 print("Habitación encontrada.")
-                return render_template("respuesta.html", participante=inscripto["participante"], habitacion=inscripto["habitacion"], compania=inscripto["compania"], consejero=inscripto["consejero"], consejera=inscripto["consejera"], sesion=inscripto["sesion"], link_compania=None, color="green")
+                return render_template("respuesta.html", participante=inscripto["participante"], habitacion=inscripto["habitacion"], compania=inscripto["compania"], consejero=inscripto["consejero"], consejera=inscripto["consejera"], sesion=inscripto["sesion"], link_compania=linkcompania, color=color_text)
 
             else:
                 print("Correo no encontrado.")
