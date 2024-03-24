@@ -1,0 +1,10 @@
+openpyxl
+jinja2
+uvicorn
+python-multipart
+pandas
+XlsxWriter
+pymongo[srv]
+python-dotenv
+flask
+gunicorn
