@@ -65,6 +65,9 @@ def crear_app():
             libro_excel_enlaces = openpyxl.load_workbook('./archivos/datos_fijos.xlsx')
             hoja_excel_enlaces = libro_excel_enlaces.active
 
+            # Inicializar linkcompania con None por defecto
+            linkcompania = None
+
             if inscripto:
                 participantes_collection.update_one({"_id": inscripto["_id"]}, {"$set": {"registro": "SI"}})
 
@@ -79,9 +82,11 @@ def crear_app():
                     if fila[3] == inscripto["sesion"]:
                         color_text = fila[4]
                         break
+                
+                color = "red" if inscripto["sesion"] == 1 else "blue" if inscripto["sesion"] == 2 else "green"
 
                 print("Habitación encontrada.")
-                return render_template("respuesta.html", participante=inscripto["participante"], habitacion=inscripto["habitacion"], compania=inscripto["compania"], consejero=inscripto["consejero"], consejera=inscripto["consejera"], sesion=inscripto["sesion"], link_compania=linkcompania, color=color_text)
+                return render_template("respuesta.html", participante=inscripto["participante"], habitacion=inscripto["habitacion"], compania=inscripto["compania"], consejero=inscripto["consejero"], consejera=inscripto["consejera"], sesion=color, link_compania=linkcompania, color=color_text)
 
             else:
                 print("Correo no encontrado.")
