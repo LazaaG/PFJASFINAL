@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PFJAS</title>
+    <link rel="icon" href="static\logo.ico" type="image/x-icon">
+
+    <!-- Estilos CSS -->
+    <style>
+        /* Estilos generales del cuerpo de la página */
+        body {
+            text-align: center;  /* Texto centrado */
+            padding: 50px;  /* Espaciado interno */
+            margin: 0;  /* Margen cero */
+            display: flex;  /* Uso de Flexbox para diseño flexible */
+            flex-direction: column;  /* Columnas principales */
+            align-items: center;  /* Elementos centrados horizontalmente */
+            justify-content: center;  /* Elementos centrados verticalmente */
+            height: 100vh;  /* 100% de la altura de la ventana */
+            background-image: url("static/respuesta.jpg");  /* Imagen de fondo */
+            background-size: contain;  /* Ajusta la imagen al tamaño de la ventana */
+            background-position: center;  /* Posición centrada de la imagen */
+            font-family: "Ensign:Sans", Arial, "noto sans", sans-serif;
+        }
+
+        /* Estilos del contenedor principal */
+        .container {
+            width: fit-content;  /* Ancho ajustado al contenido */
+            height: 200px;  /* Altura del contenedor */
+            position: relative;  /* Posición relativa */
+            background-color: rgba(255, 255, 255, 0.8);  /* Fondo blanco semi-transparente */
+            text-align: center;  /* Texto centrado */
+            transition: transform 0.8s;  /* Transición de transformación */
+            transform-style: preserve-3d;  /* Estilo de transformación 3D */
+            border-radius: 5px;  /* Bordes redondeados */
+            border: 2px solid #323232;  /* Borde sólido de color #323232 */
+            box-shadow: 4px 4px #323232;  /* Sombra externa */
+            display: flex;  /* Uso de Flexbox para diseño flexible */
+            flex-direction: column;  /* Columnas principales */
+            gap: 5px;  /* Espacio entre elementos hijos */
+            padding: 20px;  /* Espaciado interno */
+            align-items: center;  /* Centrar verticalmente */
+            justify-content: center; /* Centrar horizontalmente */
+        }
+
+        /* Estilos del título de la tarjeta */
+        .card__title {
+            font-size: 25px;  /* Tamaño de fuente */
+            font-weight: 900;  /* Peso de fuente (negrita) */
+            color: #323232;  /* Color del texto #323232 */
+        }
+
+        /* Estilos del contenido de la tarjeta */
+        .card__content {
+            font-size: 15px;  /* Tamaño de fuente */
+            line-height: 18px;  /* Altura de línea */
+            color: #323232;  /* Color del texto #323232 */
+        }
+
+        /* Estilos del botón */
+        .back-btn {
+            margin-top: 20px; /* Margen superior */
+            padding: 10px 20px; /* Espaciado interno */
+            border-radius: 5px; /* Bordes redondeados */
+            border: 2px solid #323232; /* Borde sólido de color #323232 */
+            background-color: #fff; /* Fondo blanco */
+            box-shadow: 4px 4px #323232; /* Sombra externa */
+            font-size: 17px; /* Tamaño de fuente */
+            font-weight: 600; /* Peso de fuente */
+            color: #323232; /* Color del texto #323232 */
+            cursor: pointer; /* Cambio de cursor al señalar */
+        }
+
+        /* Estilos del botón al hacer clic */
+        .back-btn:active {
+            box-shadow: 0px 0px #323232; /* Sombra externa al hacer clic */
+            transform: translate(3px, 3px); /* Desplazamiento al hacer clic */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Contenedor principal -->
+    <div class="container">
+        <!-- Título de la tarjeta -->
+        <span class="card__title">Correo NO encontrado</span>
+        <!-- Contenido de la tarjeta -->
+        <p class="card__content">Intente nuevamente.</p>
+        <!-- Botón para volver atrás -->
+        <button class="back-btn" onclick="goBack()">Regresar</button>
+    </div>
+
+    <!-- Script para retroceder en la historia del navegador -->
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>

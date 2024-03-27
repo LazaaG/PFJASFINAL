@@ -99,7 +99,7 @@ def crear_app():
 
             else:
                 print("Correo no encontrado.")
-                return "Correo no encontrado.", 404
+                return render_template("error.html"), 404
 
         except Exception as e:
             print(f"Error al buscar habitación: {e}")
