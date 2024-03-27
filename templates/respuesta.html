@@ -58,8 +58,8 @@
                 color: #FF0000;
             {% elif sesion == "blue" %}
                 color: #0000FF;
-            {% elif sesion == "green" %}
-                color: #00FF00;
+            {% elif sesion == "yellow" %}
+                color: #FFFF00;
             {% else %}
                 color: #323232;
             {% endif %}
@@ -132,7 +132,15 @@
         .negrita {
             font-size: 25px;  /* Tamaño de fuente más grande */
             font-weight: 800;  /* Peso de fuente (negrita) */
-            color: black;  /* Color del texto blanco */
+            {% if sesion == "red" %}
+                color: #FF0000;
+            {% elif sesion == "blue" %}
+                color: #0000FF;
+            {% elif sesion == "yellow" %}
+                color: #FFFF00;
+            {% else %}
+                color: #323232;
+            {% endif %}
         }
 
         .espaciado {
@@ -140,9 +148,9 @@
         }
 
         .negrita_2 {
-            font-size: 15px;  /* Tamaño de fuente más grande */
+            font-size: 25px;  /* Tamaño de fuente más grande */
             font-weight: 800;  /* Peso de fuente (negrita) */
-            color: black;  /* Color del texto blanco */
+            color: black;  /* Color del texto */
         }
 
         /* Estilos adicionales para la lista desordenada */
@@ -170,12 +178,12 @@
 
         
         <ul class="card__list">
-            <li class="card__content">Su habitación es la número <span class="negrita">{{ habitacion }}</span></li>
-            <li class="card__content">Su compañia es la número <span class="negrita">{{ compania }}</span></li>
+            <li class="card__content">Habitación número <span class="negrita_2">{{ habitacion }}</span>, se encuentra en <span class="negrita_2">{{ ubicacion }}</span></li>
+            <li class="card__content">Compañia número <span class="negrita_2">{{ compania }}</span></li>
             <li class="card__content">Sus consejeros son:</li>
                 <li class="card__content"><span class="negrita_2">{{ consejera }}</span></li>
                 <li class="card__content"><span class="negrita_2">{{ consejero }}</span></li>
-            <li class="sesion">El color de su sesion es <span class="negrita">{{ color }}</span></li>
+            <li>El color de su sesión es <span class="negrita">{{ color }}</span></li>
         </ul>
 
         <p><a href="{{ link_compania }}">Ingresar al grupo de mi compañía</a></p>

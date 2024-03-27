@@ -54,6 +54,7 @@ def crear_app():
             print(f"Error al mostrar inscriptos: {e}")
             return str(e), 500
 
+    
     @app.route("/buscar_habitacion", methods=['POST'])
     def buscar_habitacion():
         try:
@@ -67,26 +68,34 @@ def crear_app():
 
             # Inicializar linkcompania con None por defecto
             linkcompania = None
+            color_text = None
+            ubic = None
 
             if inscripto:
                 participantes_collection.update_one({"_id": inscripto["_id"]}, {"$set": {"registro": "SI"}})
 
                 # Buscar el enlace correspondiente a la compañía en el segundo archivo Excel
                 for fila in hoja_excel_enlaces.iter_rows(min_row=2, values_only=True):
-                    if fila[0] == inscripto["compania"]:
-                        linkcompania = fila[1]
+                    if fila[0] == inscripto["compania"] and fila[1] == inscripto["sesion"]:
+                        linkcompania = fila[2]
                         break
 
                 # Buscar el color
                 for fila in hoja_excel_enlaces.iter_rows(min_row=2, values_only=True):
-                    if fila[3] == inscripto["sesion"]:
-                        color_text = fila[4]
+                    if fila[4] == inscripto["sesion"]:
+                        color_text = fila[5]
+                        break
+
+                # Buscar la ubicacion de la habitacion
+                for fila in hoja_excel_enlaces.iter_rows(min_row=2, values_only=True):
+                    if fila[7] == inscripto["habitacion"]:
+                        ubic = fila[8]
                         break
                 
-                color = "red" if inscripto["sesion"] == 1 else "blue" if inscripto["sesion"] == 2 else "green"
+                color = "red" if inscripto["sesion"] == 1 else "blue" if inscripto["sesion"] == 2 else "yellow"
 
                 print("Habitación encontrada.")
-                return render_template("respuesta.html", participante=inscripto["participante"], habitacion=inscripto["habitacion"], compania=inscripto["compania"], consejero=inscripto["consejero"], consejera=inscripto["consejera"], sesion=color, link_compania=linkcompania, color=color_text)
+                return render_template("respuesta.html", participante=inscripto["participante"], habitacion=inscripto["habitacion"], compania=inscripto["compania"], consejero=inscripto["consejero"], consejera=inscripto["consejera"], sesion=color, link_compania=linkcompania, color=color_text.upper(), ubicacion=ubic)
 
             else:
                 print("Correo no encontrado.")
