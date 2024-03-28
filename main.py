@@ -60,7 +60,7 @@ def crear_app():
         try:
             print("Buscando habitación...")
             correo = request.form.get('correo')
-            inscripto = participantes_collection.find_one({"correo": correo})
+            inscripto = participantes_collection.find_one({"correo": correo.lower()})
 
             # Cargar el segundo archivo Excel que contiene los enlaces de las compañías
             libro_excel_enlaces = openpyxl.load_workbook('./archivos/datos_fijos.xlsx')
